@@ -22,16 +22,16 @@ class Comment extends Component{
 	}
 
 	componentWillMount(){
-		this._updateTIme()
+		this._updateTime()
 		this._timer = setInterval(
-      		this._updateTIme.bind(this),
+      		this._updateTime.bind(this),
       		5000
     	)
     	clearInterval(this._timer)
 	}
 
-	_updateTIme(){
-		const durationTime=(Date.now() - this.props.comment.time)/1000
+	_updateTime(){
+		const durationTime=(+Date.now() - this.props.comment.createdTime)/1000
 		this.setState({
 			time:durationTime>60
 			? `${Math.round(durationTime / 60)} 分钟前`
@@ -49,14 +49,14 @@ class Comment extends Component{
 			<div className='comment'>
 		        <div className='comment-user'>
 		          	<span>{this.props.comment.username} </span>：
+		          	<span className='comment-createdtime'>
+	          			{this.state.time}
+	        		</span>
 		        </div>
 		        <p dangerouslySetInnerHTML={{
   					__html: this._getProcessedContent(this.props.comment.content)
 				}} />
-		        <span className='comment-createdtime'>
-          			{this.state.time}
-        		</span>
-        		<span className='comment-delete' onClick={this.handleDeleteComment.bind(this)}>
+		        <span className='comment-delete' onClick={this.handleDeleteComment.bind(this)}>
           			删除
         		</span>
 		    </div>

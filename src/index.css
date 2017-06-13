@@ -82,11 +82,10 @@ body {
 
 /* 评论组件样式 */
 .comment {
-  display: flex;
   border-bottom: 1px solid #f1f1f1;
   margin-bottom: 10px;
   padding-bottom: 10px;
-  min-height: 50px;
+  overflow: hidden;
 }
 
 .comment .comment-user {
@@ -100,5 +99,9 @@ body {
 
 .comment p {
   margin: 0;
-  /*text-indent: 2em;*/
+  text-indent: 2em;
+}
+
+.comment-delete,.comment-createdtime{
+  float:right;
 }

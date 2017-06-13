@@ -32,8 +32,6 @@ class CommentInputContainer extends Component {
   }
 
   _saveUsername (username) {
-    // 看看 render 方法的 onUserNameInputBlur
-    // 这个方法会在用户名输入框 blur 的时候的被调用，保存用户名
     localStorage.setItem('username', username)
   }
 

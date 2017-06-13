@@ -62,7 +62,7 @@ export default class CommentInput extends Component{
 		            	<input 
 		            		value={this.state.username}
 		            		onBlur={this.handleUsernameBlur.bind(this)}
-		            		onChange={this.stateNameChange.bind(this)} />
+		            		onChange={this.handleUsernameChange.bind(this)} />
 		          	</div>
 		        </div>
 		        <div className='comment-field'>
@@ -71,7 +71,7 @@ export default class CommentInput extends Component{
 		            	<textarea 
 		            		value={this.state.content}
 		            		ref={(textarea)=>this.textarea=textarea}
-		            		onChange={this.stateContentChanme.bind(this)} />
+		            		onChange={this.handleContentChange.bind(this)} />
 		          	</div>
 		        </div>
 		        <div className='comment-field-button'>
