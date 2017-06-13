@@ -1,60 +1,57 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 
-class CommentInput extends Component{
-	constructor(){
-		super()
+export default class CommentInput extends Component{
+	static propTypes = {
+	    username: PropTypes.any,
+	    onSubmit: PropTypes.func,
+	    onUserNameInputBlur: PropTypes.func
+  	}
+
+  	static defaultProps = {
+    	username: ''
+  	}
+
+	constructor(props){
+		super(props)
 		this.state={
-			username:'',
+			username:props.username,
 			content:'',
 		}
-	}
-
-	stateNameChanme(event){
-		this.setState({
-			username: event.target.value
-		})
-	}
-
-	stateContentChanme(event){
-		this.setState({
-			content: event.target.value
-		})
-	}
-
-	componentWillMount(){
-		this._loadUsername()
-	}
-
-	_loadUsername(){
-		const username=localStorage.username
-		if(username){
-			this.setState({username})
-		}
-
 	}
 
 	componentDidMount(){
 		this.textarea.focus()
 	}
 
-	handleSubmit () {
-	    if (this.props.onSubmit) {
-	    	// const { username, content } = this.state
-	    	const username = this.state.username
-	    	const content = this.state.content
-	    	const time = Date.now()
-	    	this.props.onSubmit({username, content, time})
-	    }
-	    this.setState({ content: '' })
-	}
+	handleUsernameBlur (event) {
+    	if (this.props.onUserNameInputBlur) {
+      	this.props.onUserNameInputBlur(event.target.value)
+    	}
+  	}
 
-	_saveUsername(username){
-		localStorage.setItem('username',username)
-	}
+  	handleUsernameChange (event) {
+    	this.setState({
+      	username: event.target.value
+    	})
+  	}
 
-	handleUsernameBlur(event){
-		this._saveUsername(event.target.value)
-	}
+  	handleContentChange (event) {
+    	this.setState({
+      	content: event.target.value
+    	})
+  	}
+
+  	handleSubmit () {
+    	if (this.props.onSubmit) {
+      		this.props.onSubmit({
+        		username: this.state.username,
+        		content: this.state.content,
+        		createdTime: +new Date()
+      		})
+    	}
+    	this.setState({ content: '' })
+  	}
 
 	render(){
 		return (
@@ -65,7 +62,7 @@ class CommentInput extends Component{
 		            	<input 
 		            		value={this.state.username}
 		            		onBlur={this.handleUsernameBlur.bind(this)}
-		            		onChange={this.stateNameChanme.bind(this)} />
+		            		onChange={this.stateNameChange.bind(this)} />
 		          	</div>
 		        </div>
 		        <div className='comment-field'>
@@ -86,5 +83,3 @@ class CommentInput extends Component{
 		)
 	}
 }
-
-export default CommentInput
